@@ -1,0 +1,32 @@
+{
+  "name": "ourapp",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "_start": " if [[ $NODE_ENV == 'production' ]]; then node ./bin/www; else nodemon ./bin/www; fi",
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-session": "^1.17.0",
+    "http-errors": "~1.6.3",
+    "jquery": "^3.5.1",
+    "loadash": "^1.0.0",
+    "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pg": "^7.18.2",
+    "pug": "^2.0.4",
+    "sequelize": "^5.21.5",
+    "sequelize-cli": "^5.5.1",
+    "sqlite3": "^4.2.0",
+    "validator": "^12.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

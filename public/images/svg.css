@@ -1,0 +1,7 @@
+svg{
+    stroke: white;
+}
+svg:hover{
+    stroke: whitesmoke;
+    z-index: -100;
+}
