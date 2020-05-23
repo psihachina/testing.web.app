@@ -1,0 +1,29 @@
+doctype html
+html(lang='en')
+  include common/head.pug
+  +head("Starter MVP")
+  body
+    header
+      include common/navbar.pug
+      +navbar(user)
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1.mb-3 Tests 
+            p.lead We have tests on
+            ul
+              li.lead.mb-4 C#
+              li.lead.mb-4 JavaScript
+              li.lead.mb-4 Python
+
+            p.lead Join to us :
+              a(href="/signup")  Sign Up
+            //- form(action="/", method="POST")
+            //-   .input-group.mb-3
+            //-     input(type="email", placeholder="Enter your email address", name="lead_email").form-control
+            //-     .input-group-append
+            //-       button(type="submit").btn.btn-primary Get Started
+                        
+    include common/footer.pug
+    +footer()
+    script(src='/javascripts/leads.js')
