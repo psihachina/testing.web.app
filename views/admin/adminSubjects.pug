@@ -1,0 +1,88 @@
+doctype html
+html(lang='en')
+    include ../common/head.pug
+    +head("Dashboard")
+    body
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+        script(src='/javascripts/admin.js')
+        header
+            include ../common/navbar.pug
+            +navbar(user)
+        .container
+            .row
+                .col-12
+                    h1 Subject List
+                    div.list-group(id="thisUpd" role="tablist")
+                        li.list-group-item
+                            .row
+                                .col-9
+                                    h4.mb-0.align-middle
+                                        span.badge Subject name
+                        for item in subjects
+                            li.list-group-item(id=item.idSubject)
+                                .row
+                                    .col-10
+                                        h4.mb-0.align-middle
+                                            span.badge=item.subjectName
+                                    .col-2
+                                        span.badge.text-right.w-100
+                                                a(href="#" data-toggle="modal" data-target="#editSubjectModal" data-id=item.idSubject)
+                                                    img(src="https://img.icons8.com/wired/25/000000/edit.png" alt="Edit")
+                                                a.pl-2(href="#" data-toggle="modal" data-target="#deleteSubjectModal" data-id=item.idSubject)
+                                                    img(src="https://img.icons8.com/wired/25/000000/delete.png" alt="Delete")
+                                                a.pl-2(href="http://localhost:3000/admin/subjects/"+item.idSubject)
+                                                    <img src="https://img.icons8.com/wired/25/000000/menu.png" alt="Open">                                                                    
+                    button(type="button " class="btn btn-dark w-100" data-toggle="modal" data-target="#addSubjectModal") Add new subject
+                                
+            //Modal Add Window
+            div(class="modal fade" id="addSubjectModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true")
+                div(class="modal-dialog" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title" id="addModalLabel")  Add subject
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true")
+                        div(class="modal-body")
+                            .col-sm-12.col-md-12.col-xs-12
+                                form(id="formAddSubject")
+                                    div.formgroup
+                                        input(type="text", name="subjectName", placeholder='Please enter name new subject').form-control
+                                    div(class="modal-footer")
+                                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                                        button(type="submit" class="btn btn-primary") Add
+            //Modal Edit Window
+            div(class="modal fade" id="editSubjectModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true")
+                div(class="modal-dialog" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title" id="editModalLabel")  Edit subject
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true")
+                        div(class="modal-body")
+                            .col-sm-12.col-md-12.col-xs-12
+                                form(id="formEditSubject")
+                                    div.formgroup
+                                        input(type="text", name="subjectName", placeholder='Please enter name new subject').form-control
+                                    div(class="modal-footer")
+                                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                                        button(type="submit" class="btn btn-primary") Edit
+            //Modal Delete Window
+            div(class="modal fade" id="deleteSubjectModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true")
+                div(class="modal-dialog" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title" id="deleteModalLabel")  Delete subject
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true")
+                        div(class="modal-body")
+                            h5 Are you sure?
+                            .col-sm-12.col-md-12.col-xs-12
+                                form(id="formDeleteSubject")
+                                    div.formgroup
+                                    div(class="modal-footer")
+                                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                                        button(type="submit" class="btn btn-primary") Delete
+
+        include ../common/footer.pug
+        +footer()
+        script(src='/javascripts/ajaxAdmin.js')
