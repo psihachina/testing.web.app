@@ -102,3 +102,89 @@ $('#formEditTest').submit(function(){
       });
     return false;
 })
+
+//Adding a subject
+$('#formAddSubject').submit(function(){
+    let thisUpd = $('#thisUpd');
+    $.ajax({
+        type: "POST",
+        url: "/admin/subjects/add",
+        cache: "false",
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function (data) {
+            if (!data.error) {
+                $("#addSubjectModal").modal('toggle');
+                document.getElementById("formAddSubject").reset();
+                $(thisUpd).append(
+                `<li class='list-group-item' id=${data.idSubject}>
+                    <div class="row">
+                        <div class="col-9">
+                            <h4 class="mb-0 align-middle"><span class="badge">${data.subjectName}</span></h4>
+                        </div>
+                        <div class="col-3">
+                            <span class="badge text-right w-100">
+                                <a data-toggle="modal" data-target="#editSubjectModal" data-id=${data.idSubject}>
+                                    <img src="https://img.icons8.com/wired/25/000000/edit.png">
+                                </a>
+                                <a class="pl-2"data-toggle="modal" data-target="#deleteSubjectModal" data-id=${data.idSubject}>
+                                    <img src="https://img.icons8.com/wired/25/000000/delete.png">
+                                </a>
+                                <a class="pl-2" href="http://localhost:3000/admin/subjects/${data.idSubject}">
+                                    <img src="https://img.icons8.com/wired/25/000000/menu.png">
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </li>`);
+            } else {
+                alert('error!');
+            }
+        }
+      });
+    return false;
+})  
+//Delete subject
+$('#formDeleteSubject').submit(function(){
+    $.ajax({
+        type: "POST",
+        url: "/admin/subjects/delete/" + id,
+        cache: "false",
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function (data) {
+            if (!data.error) {
+                console.log(data);
+                $("#deleteSubjectModal").modal('toggle');
+                $("li#"+data).remove();
+            } else {
+                alert('error!');
+            }
+        }
+      });
+    return false;
+}) 
+//Subject edit
+$('#formEditSubject').submit(function(){
+    console.log("submit");
+    let thisUpd = $('#thisUpd');
+    $.ajax({
+        type: "POST",
+        url: "/admin/subjects/edit/" + id,
+        cache: "false",
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function (data) {
+            if (!data.error) {
+                console.log(data);
+                
+                $("#editSubjectModal").modal('toggle');
+                document.getElementById("formEditSubject").reset();              
+                $($(`li#${data.idSubject} span`)[0]).text(data.subjectName);
+            } else {
+                alert('error!');
+            }
+        }
+      });
+    return false;
+});
