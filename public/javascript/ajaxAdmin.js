@@ -188,3 +188,108 @@ $('#formEditSubject').submit(function(){
       });
     return false;
 });
+
+//Adding a question
+$('#formAddQuestion').submit(function(){
+    let thisUpd = $('#thisUpd');
+    $.ajax({
+        type: "POST",
+        url: "/admin/questions/add",
+        cache: "false",
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function (data) {
+            if (!data.error) {
+                $("#addQuestionModal").modal('toggle');
+                document.getElementById("formAddQuestion").reset();
+                $(thisUpd).append(
+                `
+                <ul class="list-group list-group-horizontal" id=${data.idQuestion}>
+                    <li class="list-group-item w-100">
+                        <h4 class="mb-0 align-middle">
+                            <span class="badge">${data.textQuestion}</span>
+                        </h4>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge text-right w-100">
+                            <a class="btn btn-light" href="#" data-toggle="modal" data-target="#editQuestionModal" data-id=${data.idQuestion}>
+                                <img src="https://img.icons8.com/wired/25/000000/edit.png">
+                            </a>
+                            <a class="btn btn-light" href="#" data-toggle="modal" data-target="#deleteQuestionModal" data-id=${data.idQuestion}>
+                                <img src="https://img.icons8.com/wired/25/000000/delete.png">
+                            </a>
+                            <a class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapse-${data.idQuestion}" aria-expanded="false">
+                                <img src="https://img.icons8.com/wired/25/000000/menu.png">
+                            </a>
+                        </span>
+                    </li>
+                </ul>
+                <li class="list-group-item collapse" id="collapse-${data.idQuestion}">
+                    <table class="table table-dark" id="thisUpdAns">
+                        <thead>
+                            <tr>
+                                <th scope="col">Answer</th>
+                                <th scope="col">Correct</th>
+                                <th class="tools" scope="col">
+                                    <button class="ml-auto p-0 btn btn-dark btn-plus-dark" type="button" data-toggle="modal" data-target="#addAnswerModal" data-id=${data.idQuestion}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                                        </svg>    
+                                    </button>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </li>
+                `);
+            } else {
+                alert('error!');
+            }
+        }
+      });
+    return false;
+})  
+//Delete question
+$('#formDeleteQuestion').submit(function(){
+    $.ajax({
+        type: "POST",
+        url: "/admin/questions/delete/" + id,
+        cache: "false",
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function (data) {
+            if (!data.error) {
+                console.log(data);
+                $("#deleteQuestionModal").modal('toggle');
+                $("ul#"+data).remove();
+                $("li#collapse-"+data).remove();
+            } else {
+                alert('error!');
+            }
+        }
+      });
+    return false;
+}) 
+//Question edit
+$('#formEditQuestion').submit(function(){
+    $.ajax({
+        type: "POST",
+        url: "/admin/questions/edit/" + id,
+        cache: "false",
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function (data) {
+            if (!data.error) {
+                console.log(data);
+                $("#editQuestionModal").modal('toggle');
+                document.getElementById("formEditQuestion").reset();              
+                $($(`li#${data.idQuestion} span`)[0]).text(data.textQuestion);
+            } else {
+                alert('error!');
+            }
+        }
+      });
+    return false;
+});
