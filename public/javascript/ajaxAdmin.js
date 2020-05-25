@@ -293,3 +293,86 @@ $('#formEditQuestion').submit(function(){
       });
     return false;
 });
+
+//Adding a answer
+$('#formAddAnswer').submit(function(){
+    let thisUpd = $('#thisUpdAns');
+    console.log($(this).serialize());
+    
+    $.ajax({
+        type: "POST",
+        url: "/admin/answers/add",
+        cache: "false",
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function (data) {
+            if (!data.error) {
+                let current;
+                $("#addAnswerModal").modal('toggle');
+                document.getElementById("formAddAnswer").reset();
+                if(data.currentAnswer == 0)
+                    current = "false"
+                else current = "true";
+                $(`#collapse-${data.idQuestion} #thisUpdAns`).append(
+                `<tbody id=${data.idAnswer}>
+                    <tr>
+                        <td class="textAnswer">${data.textAnswer}</td>
+                        <td class="currentAnswer">${current}</td>
+                    </tr>
+                </tbody>`);
+            } else {
+                alert('error!');
+            }
+        }
+      });
+    return false;
+});
+//Answer edit
+$('#formEditAnswer').submit(function(){
+    console.log("submit");
+    let thisUpd = $('#thisUpd');
+    $.ajax({
+        type: "POST",
+        url: "/admin/answers/edit/" + id,
+        cache: "false",
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function (data) {
+            if (!data.error) {
+                let current;
+                $("#editAnswerModal").modal('toggle');
+                document.getElementById("formEditAnswer").reset();
+                console.log($(`tbody#${data.idAnswer} td.textAnswer`));
+                
+                if(data.currentAnswer == 0)
+                    current = "false"
+                else current = "true";           
+                $($(`tbody#${data.idAnswer} td.textAnswer`)[0]).text(data.textAnswer);
+            } else {
+                alert('error!');
+            }
+        }
+      });
+    return false;
+});
+
+$('#formDeleteAnswer').submit(function(){
+    $.ajax({
+        type: "POST",
+        url: "/admin/answers/delete/" + id,
+        cache: "false",
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function (data) {
+            if (!data.error) {
+                console.log(data);
+                $("#deleteAnswerModal").modal('toggle');
+                $($(`tbody#${data}`)[0]).remove();
+                $("li#collapse-"+data).remove();
+            } else {
+                alert('error!');
+            }
+        }
+      });
+    return false;
+}) 
