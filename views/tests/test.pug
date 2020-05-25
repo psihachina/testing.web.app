@@ -1,0 +1,33 @@
+doctype html
+html(lang='en')
+    include ../common/head.pug
+    +head("Login to Starter MVP")
+    body
+        header
+            include ../common/navbar.pug
+            +navbar(user)
+            .container
+                .row
+                    .col-sm-12.offset-md-2.col-md-8
+                        .jumbotron
+                            h2.text-center Test
+                            .row
+                                .col-sm-12.col-md-12.col-xs-12
+                                    form(action='/subjects/'+idTest, method='POST')
+                                        for item in questions    
+                                            h3.md-1.mt-3=item.textQuestion
+                                                div(id=item.idQuestion)
+                                                    for itemAns in answers
+                                                        if itemAns.idQuestion == item.idQuestion
+                                                            if item.severalAnswers == "false"
+                                                                div.ml-5.formcheck()
+                                                                    input(type='checkbox' value=itemAns.idAnswer name=item.idQuestion).form-check-input
+                                                                    label.h5.form-check-label=itemAns.textAnswer
+                                                            else
+                                                                div.ml-5.formcheck()
+                                                                    input(type='radio' value=itemAns.idAnswer name=item.idQuestion).form-check-input
+                                                                    label.h5.form-check-label=itemAns.textAnswer
+                                        button.mt-3.btn.btn-primary(type='submit') Send
+                        
+        include ../common/footer.pug
+        +footer()

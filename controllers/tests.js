@@ -27,3 +27,27 @@ var getIdQuestions = (arr) => {
     });
     return arrId;
 }
+
+exports.show_test = function(req, res, next) {
+    console.log('show_test');
+    return models.Question.findAll({
+        where: {
+            idTest: req.params.id
+        }
+    }).then(questions => {
+        return models.Answer.findAll({
+            where: {
+                idQuestion: {
+                    [Op.or]: getIdQuestions(questions)
+                }
+            }
+        }).then(answers => {
+            res.render('../views/tests/test', {
+                user: req.user,
+                questions: questions,
+                answers: answers,
+                idTest: req.params.id
+            });
+        });
+    });
+}
