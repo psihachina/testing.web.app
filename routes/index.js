@@ -49,3 +49,18 @@ router.get('/admin/subjects/:id', admin.show_tests);
 router.post('/admin/tests/add', admin.testAdd);
 router.post('/admin/tests/delete/:id', admin.testDelete);
 router.post('/admin/tests/edit/:id', admin.testEdit);
+
+router.get('/admin/tests/:id', admin.show_questions);
+router.post('/admin/questions/add', admin.questionAdd);
+router.post('/admin/questions/delete/:id', admin.questionDelete);
+router.post('/admin/questions/edit/:id', admin.questionEdit);
+
+router.post('/admin/answers/add', admin.answerAdd);
+router.post('/admin/answers/edit/:id', admin.answerEdit);
+router.post('/admin/answers/delete/:id', admin.answerDelete);
+
+
+// router.get()
+
+//#endregion
+module.exports = router;
