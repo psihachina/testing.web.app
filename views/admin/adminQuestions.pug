@@ -1,0 +1,226 @@
+doctype html
+html(lang='en')
+    include ../common/head.pug
+    +head("Login to Starter MVP")
+    body
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+        script(src='/javascripts/admin.js')
+        header
+            include ../common/navbar.pug
+            +navbar(user)
+        .container
+            .row
+                .col-12
+                    h1=h1 + " questions list"
+                    div.list-group(id="thisUpd")
+                        li.list-group-item.bg-dark
+                            .row
+                                .col-9
+                                    h4.mb-0.align-middle
+                                        span.badge.text-light Question name
+                                .col-2
+                                .col-1.text-center
+                                    button.p-0(type="button" class="btn btn-dark btn-plus" data-toggle="modal" data-target="#addQuestionModal")
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                                        </svg>
+                        for item in questions
+                            ul.list-group.list-group-horizontal(id=item.idQuestion)
+                                li.list-group-item.w-100
+                                    h4.mb-0.align-middle
+                                        span.badge=item.textQuestion
+                                li.list-group-item
+                                    span.badge.text-right.w-100
+                                        a.btn.btn-light(href="#" data-toggle="modal" data-target="#editQuestionModal" data-id=item.idQuestion)
+                                            img(src="https://img.icons8.com/wired/25/000000/edit.png")
+                                        a.btn.btn-light(href="#" data-toggle="modal" data-target="#deleteQuestionModal" data-id=item.idQuestion)
+                                            img(src="https://img.icons8.com/wired/25/000000/delete.png")
+                                        a.btn.btn-light(data-toggle="collapse" data-target="#collapse-"+item.idQuestion)
+                                            <img src="https://img.icons8.com/wired/25/000000/menu.png"/>
+                            li.list-group-item.collapse(id="collapse-"+item.idQuestion)
+                                table.table.table-dark(id="thisUpdAns")
+                                    thead
+                                        tr
+                                            th(scope="col") Answer
+                                            th(scope="col") Correct
+                                            th.tools(scope="col") 
+                                                button.ml-auto.p-0(type="button" class="btn btn-dark btn-plus-dark" data-toggle="modal" data-target="#addAnswerModal" data-id=item.idQuestion)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square">
+                                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                                                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                                                    </svg>    
+                                    for itemAns in answers
+                                        if itemAns.idQuestion == item.idQuestion
+                                            tbody(id=itemAns.idAnswer)
+                                                tr
+                                                    td.textAnswer=itemAns.textAnswer
+                                                    if itemAns.currentAnswer == 0
+                                                        td.currentAnswer false
+                                                    else 
+                                                        td.currentAnswer true
+                                                    td.tools 
+                                                        a.p-0.btn.btn-dark(href="#" data-toggle="modal" data-target="#editAnswerModal" data-id=itemAns.idAnswer)
+                                                            img(src="/images/edit_20px.png")
+                                                        a.p-0.btn.btn-dark(href="#" data-toggle="modal" data-target="#deleteAnswerModal" data-id=itemAns.idAnswer)
+                                                            img(src="/images/trash_can_20px.png")
+                                
+                                        
+
+                                            
+
+                    
+                                   
+
+            div(class="modal fade" id="addQuestionModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true")
+                div(class="modal-dialog" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title" id="addModalLabel")  Add question
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true")
+                        div(class="modal-body")
+                            .col-sm-12.col-md-12.col-xs-12
+                                form(id="formAddQuestion")
+                                    .formgroup
+                                        input(type="text", name="textQuestion", placeholder='Please enter text new question').form-control
+                                        input(type="hidden", name="testName" value=h1).form-control.my-2
+                                        .row
+                                            .col-2(style="align-self: center;")
+                                                h6 Points
+                                            .col-10
+                                                input(type="number", name="points" value="1").form-control.my-2     
+                                        h6 Several answers?                                    
+                                    .form-check
+                                        input.form-check-input(type="radio" name="severalAnswers" value="false" checked id="radioTrue")
+                                        label.form-check-label(for="radioTrue") Yes
+                                    br
+                                    .form-check.mt-2   
+                                        input.form-check-input(type="radio" name="severalAnswers" value="true" id="radioFalse")
+                                        label.form-check-label(for="radioFalse") No
+                                    br
+                                    div(class="modal-footer mt-2")
+                                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                                        button(type="submit" class="btn btn-primary") Add
+
+            div(class="modal fade" id="editQuestionModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true")
+                div(class="modal-dialog" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title" id="editModalLabel")  Edit question
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true")
+                        div(class="modal-body")
+                            .col-sm-12.col-md-12.col-xs-12
+                                form(id="formEditQuestion")
+                                    .formgroup
+                                        input(type="text", name="textQuestion", placeholder='Please enter text new question').form-control
+                                        input(type="hidden", name="testName" value=h1).form-control.my-2
+                                        .row
+                                            .col-2(style="align-self: center;")
+                                                h6 Points
+                                            .col-10
+                                                input(type="number", name="points" value="1").form-control.my-2     
+                                        h6 Several answers?                                    
+                                    .form-check
+                                        input.form-check-input(type="radio" name="severalAnswers" value="false" checked id="radioTrue")
+                                        label.form-check-label(for="radioTrue") Yes
+                                    br
+                                    .form-check.mt-2   
+                                        input.form-check-input(type="radio" name="severalAnswers" value="true" id="radioFalse")
+                                        label.form-check-label(for="radioFalse") No
+                                    br
+                                    div(class="modal-footer mt-2")
+                                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                                        button(type="submit" class="btn btn-primary") Edit
+
+            div(class="modal fade" id="deleteQuestionModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true")
+                div(class="modal-dialog" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title" id="deleteModalLabel")  Delete question
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true")
+                        div(class="modal-body")
+                            h5 Are you sure?
+                            .col-sm-12.col-md-12.col-xs-12
+                                form(id="formDeleteQuestion")
+                                    div.formgroup
+                                    div(class="modal-footer")
+                                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                                        button(type="submit" class="btn btn-primary") Delete
+
+            div(class="modal fade" id="addAnswerModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true")
+                div(class="modal-dialog" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title" id="addModalLabel")  Add answer
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true")
+                        div(class="modal-body")
+                            .col-sm-12.col-md-12.col-xs-12
+                                form(id="formAddAnswer")
+                                    .formgroup
+                                        input(type="text", name="textAnswer", placeholder='Please enter text new answer').form-control
+                                        input(type="hidden", name="idQuestion" id="idQuestion").form-control.my-2
+                                        h6.mt-2 Current answer?                                    
+                                    .form-check
+                                        input.form-check-input(type="radio" name="currentAnswer" value=1 checked id="radioTrue")
+                                        label.form-check-label(for="radioTrue") Yes
+                                    br
+                                    .form-check.mt-2   
+                                        input.form-check-input(type="radio" name="currentAnswer" value=0 id="radioFalse")
+                                        label.form-check-label(for="radioFalse") No
+                                    br
+                                    div(class="modal-footer mt-2")
+                                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                                        button(type="submit" class="btn btn-primary") Add
+
+            div(class="modal fade" id="editAnswerModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true")
+                div(class="modal-dialog" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title" id="editModalLabel")  Edit answer
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true")
+                        div(class="modal-body")
+                            .col-sm-12.col-md-12.col-xs-12
+                                form(id="formEditAnswer")
+                                    .formgroup
+                                        input(type="text", name="textAnswer", placeholder='Please enter text new answer').form-control
+                                        input(type="hidden", name="idQuestion" id="idQuestion").form-control.my-2
+                                        h6.mt-2 Current answer?                                    
+                                    .form-check
+                                        input.form-check-input(type="radio" name="currentAnswer" value=1 checked id="radioTrue")
+                                        label.form-check-label(for="radioTrue") Yes
+                                    br
+                                    .form-check.mt-2   
+                                        input.form-check-input(type="radio" name="currentAnswer" value=0 id="radioFalse")
+                                        label.form-check-label(for="radioFalse") No
+                                    br
+                                    div(class="modal-footer mt-2")
+                                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                                        button(type="submit" class="btn btn-primary") Add
+
+            div(class="modal fade" id="deleteAnswerModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true")
+                div(class="modal-dialog" role="document")
+                    div(class="modal-content")
+                        div(class="modal-header")
+                            h5(class="modal-title" id="deleteModalLabel")  Delete answer
+                            button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                                span(aria-hidden="true")
+                        div(class="modal-body")
+                            h5 Are you sure?
+                            .col-sm-12.col-md-12.col-xs-12
+                                form(id="formDeleteAnswer")
+                                    div.formgroup
+                                    div(class="modal-footer")
+                                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                                        button(type="submit" class="btn btn-primary") Delete
+                                
+
+        include ../common/footer.pug
+        +footer()
+        script(src='/javascripts/ajaxAdmin.js')
