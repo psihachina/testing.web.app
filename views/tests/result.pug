@@ -1,0 +1,25 @@
+doctype html
+html(lang='en')
+    include ../common/head.pug
+    +head("Subjects")
+    body
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+        header
+            include ../common/navbar.pug
+            +navbar('', user)
+        .container
+            h1 Result
+            -var i = 0;
+            table.table
+                thead
+                    tr
+                    th(scope="col") Questions
+                    th(scope="col") Answer
+                    th(scope="col") Correct
+                    th(scope="col") Point
+            br
+            -var a
+            h1="All points "+ i
+        include ../common/footer.pug
+        +footer()
+        script(src='/javascripts/ajaxTest.js')
