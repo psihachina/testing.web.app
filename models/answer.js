@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
             references : {
                 model : 'Questions',
                 key : 'idQuestion'
+                
             }
         }
     });
