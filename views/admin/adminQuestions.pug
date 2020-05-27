@@ -33,11 +33,11 @@ html(lang='en')
                                         span.badge=item.textQuestion
                                 li.list-group-item
                                     span.badge.text-right.w-100
-                                        a.btn.btn-light(href="#" data-toggle="modal" data-target="#editQuestionModal" data-id=item.idQuestion)
+                                        a.tools.btn.btn-light(href="#" data-toggle="modal" data-target="#editQuestionModal" data-id=item.idQuestion)
                                             img(src="https://img.icons8.com/wired/25/000000/edit.png")
-                                        a.btn.btn-light(href="#" data-toggle="modal" data-target="#deleteQuestionModal" data-id=item.idQuestion)
+                                        a.tools.btn.btn-light(href="#" data-toggle="modal" data-target="#deleteQuestionModal" data-id=item.idQuestion)
                                             img(src="https://img.icons8.com/wired/25/000000/delete.png")
-                                        a.btn.btn-light(data-toggle="collapse" data-target="#collapse-"+item.idQuestion)
+                                        a.tools.btn.btn-light(data-toggle="collapse" data-target="#collapse-"+item.idQuestion)
                                             <img src="https://img.icons8.com/wired/25/000000/menu.png"/>
                             li.list-group-item.collapse(id="collapse-"+item.idQuestion)
                                 table.table.table-dark(id="thisUpdAns")
@@ -62,9 +62,9 @@ html(lang='en')
                                                     else 
                                                         td.currentAnswer true
                                                     td.tools 
-                                                        a.p-0.btn.btn-dark(href="#" data-toggle="modal" data-target="#editAnswerModal" data-id=itemAns.idAnswer)
+                                                        a.tools.p-0.btn.btn-dark(href="#" data-toggle="modal" data-target="#editAnswerModal" data-id=itemAns.idAnswer)
                                                             img(src="/images/edit_20px.png")
-                                                        a.p-0.btn.btn-dark(href="#" data-toggle="modal" data-target="#deleteAnswerModal" data-id=itemAns.idAnswer)
+                                                        a.tools.p-0.btn.btn-dark(href="#" data-toggle="modal" data-target="#deleteAnswerModal" data-id=itemAns.idAnswer)
                                                             img(src="/images/trash_can_20px.png")
                                 
                                         

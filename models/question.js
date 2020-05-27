@@ -6,31 +6,31 @@ module.exports = (sequelize, DataTypes) => {
             autoIncrement: true,
             primaryKey: true
         },
-        createdAt : {
-            allowNull : false,
-            type : DataTypes.DATE
+        createdAt: {
+            allowNull: false,
+            type: DataTypes.DATE
         },
-        updatedAt : {
-            allowNull : false,
-            type : DataTypes.DATE,  
+        updatedAt: {
+            allowNull: false,
+            type: DataTypes.DATE,
         },
 
-        textQuestion : {
-            allowNull : false,
-            type : DataTypes.STRING
+        textQuestion: {
+            allowNull: false,
+            type: DataTypes.STRING
         },
-        idTest : {
-            allowNull : false,
-            type : DataTypes.INTEGER
+        idTest: {
+            allowNull: false,
+            type: DataTypes.INTEGER
         },
-        severalAnswers : {
-            allowNull : false,
-            type : DataTypes.STRING
+        severalAnswers: {
+            allowNull: false,
+            type: DataTypes.STRING
         },
-        points : {
-            allowNull : false,
-            type : DataTypes.INTEGER
+        points: {
+            allowNull: false,
+            type: DataTypes.INTEGER
         }
     });
-    return Question;
+return Question;
 }

@@ -1,10 +1,12 @@
 let id;
 //Catching an object id when opening a modal window
-$('a').on('click', function () {
+$(document).on('click',".tools", function () {
+    if($(this).data('id') !== undefined)
     id = $(this).data('id');
+    console.log(id);
 });
 $(document).on('click',".btn", function () {    
-    console.log($(this).data('id'));
+    console.log($($(this)[0]).data('id'));
     if(typeof($($(this)[0]).data('id')) == undefined)
         $("#idQuestion").attr("value" , $(this).data('id'));
     else 
@@ -32,13 +34,13 @@ $('#formAddTest').submit(function(){
                         </div>
                         <div class="col-3">
                             <span class="badge text-right w-100">
-                                <a data-toggle="modal" data-target="#editTestModal" data-id=${data.idTest}>
+                                <a class="tools" data-toggle="modal" data-target="#editTestModal" data-id=${data.idTest}>
                                     <img src="https://img.icons8.com/wired/25/000000/edit.png">
                                 </a>
-                                <a class="pl-2"data-toggle="modal" data-target="#deleteTestModal" data-id=${data.idTest}>
+                                <a class="pl-2 tools" data-toggle="modal" data-target="#deleteTestModal" data-id=${data.idTest}>
                                     <img src="https://img.icons8.com/wired/25/000000/delete.png">
                                 </a>
-                                <a class="pl-2" href="http://localhost:3000/admin/tests/${data.idTest}">
+                                <a class="pl-2 tools" href="http://localhost:3000/admin/tests/${data.idTest}">
                                     <img src="https://img.icons8.com/wired/25/000000/menu.png">
                                 </a>
                             </span>
@@ -124,13 +126,13 @@ $('#formAddSubject').submit(function(){
                         </div>
                         <div class="col-3">
                             <span class="badge text-right w-100">
-                                <a data-toggle="modal" data-target="#editSubjectModal" data-id=${data.idSubject}>
+                                <a href="#"  class="tools" data-toggle="modal" data-target="#editSubjectModal" data-id=${data.idSubject}>
                                     <img src="https://img.icons8.com/wired/25/000000/edit.png">
                                 </a>
-                                <a class="pl-2"data-toggle="modal" data-target="#deleteSubjectModal" data-id=${data.idSubject}>
+                                <a href="#" class="pl-2 tools" data-toggle="modal" data-target="#deleteSubjectModal" data-id=${data.idSubject}>
                                     <img src="https://img.icons8.com/wired/25/000000/delete.png">
                                 </a>
-                                <a class="pl-2" href="http://localhost:3000/admin/subjects/${data.idSubject}">
+                                <a href="#" class="pl-2 tools" href="http://localhost:3000/admin/subjects/${data.idSubject}">
                                     <img src="https://img.icons8.com/wired/25/000000/menu.png">
                                 </a>
                             </span>
@@ -212,13 +214,13 @@ $('#formAddQuestion').submit(function(){
                     </li>
                     <li class="list-group-item">
                         <span class="badge text-right w-100">
-                            <a class="btn btn-light" href="#" data-toggle="modal" data-target="#editQuestionModal" data-id=${data.idQuestion}>
+                            <a class="btn btn-light tools" href="#" data-toggle="modal" data-target="#editQuestionModal" data-id=${data.idQuestion}>
                                 <img src="https://img.icons8.com/wired/25/000000/edit.png">
                             </a>
-                            <a class="btn btn-light" href="#" data-toggle="modal" data-target="#deleteQuestionModal" data-id=${data.idQuestion}>
+                            <a class="btn btn-light tools" href="#" data-toggle="modal" data-target="#deleteQuestionModal" data-id=${data.idQuestion}>
                                 <img src="https://img.icons8.com/wired/25/000000/delete.png">
                             </a>
-                            <a class="btn btn-light collapsed" data-toggle="collapse" data-target="#collapse-${data.idQuestion}" aria-expanded="false">
+                            <a class="btn btn-light tools collapsed" data-toggle="collapse" data-target="#collapse-${data.idQuestion}" aria-expanded="false">
                                 <img src="https://img.icons8.com/wired/25/000000/menu.png">
                             </a>
                         </span>
@@ -252,7 +254,7 @@ $('#formAddQuestion').submit(function(){
     return false;
 })  
 //Delete question
-$('#formDeleteQuestion').submit(function(){
+$('#formDeleteQuestion').submit(function(){  
     $.ajax({
         type: "POST",
         url: "/admin/questions/delete/" + id,
@@ -285,7 +287,7 @@ $('#formEditQuestion').submit(function(){
                 console.log(data);
                 $("#editQuestionModal").modal('toggle');
                 document.getElementById("formEditQuestion").reset();              
-                $($(`li#${data.idQuestion} span`)[0]).text(data.textQuestion);
+                $($(`ul#${data.idQuestion} span`)[0]).text(data.textQuestion);
             } else {
                 alert('error!');
             }
@@ -357,6 +359,8 @@ $('#formEditAnswer').submit(function(){
 });
 
 $('#formDeleteAnswer').submit(function(){
+    console.log(id);
+    
     $.ajax({
         type: "POST",
         url: "/admin/answers/delete/" + id,

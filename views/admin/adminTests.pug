@@ -27,11 +27,11 @@ html(lang='en')
                                             span.badge=item.testName
                                     .col-3
                                         span.badge.text-right.w-100
-                                                a(href="#" data-toggle="modal" data-target="#editTestModal" data-id=item.idTest)
+                                                a.tools(href="#" data-toggle="modal" data-target="#editTestModal" data-id=item.idTest)
                                                     img(src="https://img.icons8.com/wired/25/000000/edit.png")
-                                                a.pl-2(href="#" data-toggle="modal" data-target="#deleteTestModal" data-id=item.idTest)
+                                                a.tools.pl-2(href="#" data-toggle="modal" data-target="#deleteTestModal" data-id=item.idTest)
                                                     img(src="https://img.icons8.com/wired/25/000000/delete.png")
-                                                a.pl-2(href="http://localhost:3000/admin/tests/"+item.idTest)
+                                                a.tools.pl-2(href="http://localhost:3000/admin/tests/"+item.idTest)
                                                     <img src="https://img.icons8.com/wired/25/000000/menu.png"/>
 
                     button(type="button" class="btn btn-dark w-100" data-toggle="modal" data-target="#addTestModal") Add new test                   

@@ -26,11 +26,11 @@ html(lang='en')
                                             span.badge=item.subjectName
                                     .col-2
                                         span.badge.text-right.w-100
-                                                a(href="#" data-toggle="modal" data-target="#editSubjectModal" data-id=item.idSubject)
+                                                a(href="#" class="tools" data-toggle="modal" data-target="#editSubjectModal" data-id=item.idSubject)
                                                     img(src="https://img.icons8.com/wired/25/000000/edit.png" alt="Edit")
-                                                a.pl-2(href="#" data-toggle="modal" data-target="#deleteSubjectModal" data-id=item.idSubject)
+                                                a.pl-2(href="#" class="tools" data-toggle="modal" data-target="#deleteSubjectModal" data-id=item.idSubject)
                                                     img(src="https://img.icons8.com/wired/25/000000/delete.png" alt="Delete")
-                                                a.pl-2(href="http://localhost:3000/admin/subjects/"+item.idSubject)
+                                                a.pl-2(class="tools" href="http://localhost:3000/admin/subjects/"+item.idSubject)
                                                     <img src="https://img.icons8.com/wired/25/000000/menu.png" alt="Open">                                                                    
                     button(type="button " class="btn btn-dark w-100" data-toggle="modal" data-target="#addSubjectModal") Add new subject
                                 
