@@ -81,7 +81,6 @@ exports.subjectDelete = function (req, res) {
 //#endregion
 
 //#region Tests
-//TODO Добавить удаление всех вопросов принадлежащих у тесту
 exports.testDelete = function (req, res) {
     return models.Test.destroy({
         where: {
@@ -232,7 +231,8 @@ exports.questionEdit = function (req, res) {
     })
 }
 
-//TODO Добавить удаление всех ответов принадлежащих к вопросу
+
+// keke
 exports.questionDelete = function (req, res) {
     return models.Answer.destroy({
         where: {
