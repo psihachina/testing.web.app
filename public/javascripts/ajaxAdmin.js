@@ -40,7 +40,7 @@ $('#formAddTest').submit(function(){
                                 <a class="pl-2 tools" data-toggle="modal" data-target="#deleteTestModal" data-id=${data.idTest}>
                                     <img src="https://img.icons8.com/wired/25/000000/delete.png">
                                 </a>
-                                <a class="pl-2 tools" href="http://localhost:3000/admin/tests/${data.idTest}">
+                                <a class="pl-2 tools" href="/admin/tests/${data.idTest}">
                                     <img src="https://img.icons8.com/wired/25/000000/menu.png">
                                 </a>
                             </span>
@@ -132,7 +132,7 @@ $('#formAddSubject').submit(function(){
                                 <a href="#" class="pl-2 tools" data-toggle="modal" data-target="#deleteSubjectModal" data-id=${data.idSubject}>
                                     <img src="https://img.icons8.com/wired/25/000000/delete.png">
                                 </a>
-                                <a href="#" class="pl-2 tools" href="http://localhost:3000/admin/subjects/${data.idSubject}">
+                                <a href="#" class="pl-2 tools" href="/admin/subjects/${data.idSubject}">
                                     <img src="https://img.icons8.com/wired/25/000000/menu.png">
                                 </a>
                             </span>
