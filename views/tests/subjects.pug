@@ -1,0 +1,28 @@
+doctype html
+html(lang='en')
+    include ../common/head.pug
+    +head("Subjects")
+    body
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+        header
+            include ../common/navbar.pug
+            +navbar('', user)
+        .container
+            .row
+                .col-3.border-right
+                    h1 All subjects
+                    .nav.flex-column.nav-pills(role="tablist" aria-orientation="vertical")
+                        for item in subjects
+                            .nav-link(data-toggle="pill" href="#v-pill-"+item.idSubject role="tab" aria-selected="true")=item.subjectName
+                .col-9
+                    .tab-content(id="v-pills-tabContent")
+                        for item in subjects
+                            .tab-pane.fade(id="v-pill-"+item.idSubject role="tabpanel")
+                                h1=item.subjectName + ` tests list`
+                                .list-group
+                                    for itemTest in tests
+                                        if itemTest.idSubject == item.idSubject
+                                            a.list-group-item.list-group-item-action(href=`/subjects/`+itemTest.idTest)=itemTest.testName
+        include ../common/footer.pug
+        +footer()
+        script(src='/javascripts/ajaxTest.js')

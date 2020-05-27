@@ -1,0 +1,47 @@
+doctype html
+html(lang='en')
+    include ../common/head.pug
+    +head("Subjects")
+    body
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js")
+        header
+            include ../common/navbar.pug
+            +navbar('', user)
+        .container
+            h1 Result
+            -var i = 0;
+            table.table
+                thead
+                    tr
+                    th(scope="col") Questions
+                    th(scope="col") Answer
+                    th(scope="col") Correct
+                    th(scope="col") Point
+                for question in questions
+                    tbody
+                        tr
+                            td=question.textQuestion
+                            for itemAns in ans
+                                for itemRes in result
+                                    if itemAns.idAnswer == itemRes.idAnswer
+                                        if itemRes.idQuestion == question.idQuestion
+                                            tr
+                                                td
+                                                td=itemAns.textAnswer
+                                                if itemAns.currentAnswer == 1
+                                                    td true
+                                                    td=question.points
+                                                    -i=i+question.points;
+                                                else 
+                                                    td false
+                                                    if question.severalAnswers = "false"
+                                                        td="-" + question.points
+                                                        -i=i-question.points;
+                                                    else 
+                                                        td 0                    
+            br
+            -var a
+            h1="All points "+ i
+        include ../common/footer.pug
+        +footer()
+        script(src='/javascripts/ajaxTest.js')
