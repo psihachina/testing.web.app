@@ -4,9 +4,20 @@ const passport = require('passport');
 const myPassport = require('../passport_setup')(passport);
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
+
+let flash = require('connect-flash');
+
+const { isEmpty } = require('lodash');
+const { validateUser } = require('../validators/signup');
+
+const fs = require('fs');
+
+
 exports.show_homePage = function(req, res, next) {
     res.render("../views/landing.pug")
 }
+
+/// router.get '/subjects' -- show all subjects
 exports.show_AllSubjects = function(req, res, next) {
     console.log('show_AllSubjects');
     return models.Subject.findAll().then(subjects => {
@@ -51,6 +62,7 @@ exports.show_test = function(req, res, next) {
         });
     });
 }
+
 exports.send_test = function(req, res, next) {
     let idattempt;
     return models.Question.findAll({

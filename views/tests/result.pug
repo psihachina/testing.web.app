@@ -17,6 +17,28 @@ html(lang='en')
                     th(scope="col") Answer
                     th(scope="col") Correct
                     th(scope="col") Point
+                for question in questions
+                    tbody
+                        tr
+                            td=question.textQuestion
+                            for itemAns in ans
+                                for itemRes in result
+                                    if itemAns.idAnswer == itemRes.idAnswer
+                                        if itemRes.idQuestion == question.idQuestion
+                                            tr
+                                                td
+                                                td=itemAns.textAnswer
+                                                if itemAns.currentAnswer == 1
+                                                    td true
+                                                    td=question.points
+                                                    -i=i+question.points;
+                                                else 
+                                                    td false
+                                                    if question.severalAnswers = "false"
+                                                        td="-" + question.points
+                                                        -i=i-question.points;
+                                                    else 
+                                                        td 0                    
             br
             -var a
             h1="All points "+ i

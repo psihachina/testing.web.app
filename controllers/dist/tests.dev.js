@@ -18,9 +18,20 @@ var Sequelize = require('sequelize');
 
 var Op = Sequelize.Op;
 
+var flash = require('connect-flash');
+
+var _require = require('lodash'),
+    isEmpty = _require.isEmpty;
+
+var _require2 = require('../validators/signup'),
+    validateUser = _require2.validateUser;
+
+var fs = require('fs');
+
 exports.show_homePage = function (req, res, next) {
   res.render("../views/landing.pug");
-};
+}; /// router.get '/subjects' -- show all subjects
+
 
 exports.show_AllSubjects = function (req, res, next) {
   console.log('show_AllSubjects');
