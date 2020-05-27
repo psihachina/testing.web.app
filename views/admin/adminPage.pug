@@ -1,0 +1,18 @@
+doctype html
+html(lang='en')
+    include ../common/head.pug
+    +head("Login to Starter MVP")
+    body
+        header
+            include ../common/navbar.pug
+            +navbar(user)
+        .container
+            .row
+                .col-10
+                    ul.list-group
+                        li.list-group-item
+                            a(href="/admin/subjects") Subjects Editer
+                        li.list-group-item
+                            a(href="/admin/tests") Tests Editer
+        include ../common/footer.pug
+        +footer()
