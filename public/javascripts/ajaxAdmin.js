@@ -132,7 +132,7 @@ $('#formAddSubject').submit(function(){
                                 <a href="#" class="pl-2 tools" data-toggle="modal" data-target="#deleteSubjectModal" data-id=${data.idSubject}>
                                     <img src="https://img.icons8.com/wired/25/000000/delete.png">
                                 </a>
-                                <a href="#" class="pl-2 tools" href="/admin/subjects/${data.idSubject}">
+                                <a class="pl-2 tools" href="/admin/subjects/${data.idSubject}">
                                     <img src="https://img.icons8.com/wired/25/000000/menu.png">
                                 </a>
                             </span>
@@ -320,6 +320,14 @@ $('#formAddAnswer').submit(function(){
                     <tr>
                         <td class="textAnswer">${data.textAnswer}</td>
                         <td class="currentAnswer">${current}</td>
+                        <td class="tools">
+                            <a class="tools p-0 btn btn-dark" href="#" data-toggle="modal" data-target="#editAnswerModal" data-id=${data.idAnswer}>
+                                <img src="/images/edit_20px.png"/>
+                            </a>
+                            <a class="tools p-0 btn btn-dark" href="#" data-toggle="modal" data-target="#deleteAnswerModal" data-id=${data.idAnswer}>
+                                <img src="/images/trash_can_20px.png"/>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>`);
             } else {
